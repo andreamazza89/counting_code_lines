@@ -24,6 +24,6 @@ class LinesCounter
     lines.reject { |line| line =~ JAVA_ONE_LINE_COMMENT_REGEX }
   end
 
-  JAVA_ONE_LINE_COMMENT_REGEX = /^\/\//
+  JAVA_ONE_LINE_COMMENT_REGEX = /^\s*\/\//
 
 end

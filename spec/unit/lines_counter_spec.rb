@@ -17,4 +17,8 @@ describe LinesCounter, '#lines_of_code' do
     expect(described_class.lines_of_code("//private int number = 3")).to eq 0
   end
 
+  it 'returns 0 for a string with a single line being a comment, starts with space (java)' do
+    expect(described_class.lines_of_code(" //private int number = 3")).to eq 0
+  end
+
 end
