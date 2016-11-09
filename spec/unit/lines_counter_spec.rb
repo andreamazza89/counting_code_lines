@@ -25,4 +25,8 @@ describe LinesCounter, '#lines_of_code' do
     expect(described_class.lines_of_code(" \n private int number = 3;")).to eq 1
   end
 
+  it 'ignores one-line-comment anchors if they are not at the start of the line' do 
+    expect(described_class.lines_of_code("private String link = //missing")).to eq 1
+  end
+
 end
