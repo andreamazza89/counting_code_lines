@@ -12,18 +12,24 @@ class LinesCounter
   def lines_of_code
     lines = source_code.split("\n")
     return 0 if lines.empty?
-    lines_without_one_liners = remove_one_line_comments(lines)
-    lines_without_one_liners.count
+    no_empty_lines = remove_empty_lines(lines)
+    no_one_liners = remove_one_line_comments(no_empty_lines)
+    no_one_liners.count
   end
 
   private
   
-  attr_reader :source_code
+  attr_reader :source_code, :one_line_regex
+
+  def remove_empty_lines(lines)
+    lines.reject { |line| line =~ EMPTY_LINE_REGEX }
+  end
 
   def remove_one_line_comments(lines)
-    lines.reject { |line| line =~ JAVA_ONE_LINE_COMMENT_REGEX }
+    lines.reject { |line| line =~ one_line_regex }
   end
 
   JAVA_ONE_LINE_COMMENT_REGEX = /^\s*\/\//
+  EMPTY_LINE_REGEX = /^\s*$/
 
 end
