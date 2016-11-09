@@ -33,5 +33,42 @@ describe LinesCounter, '#lines_of_code' do
     it 'ignores multi-line comments (example with no lines of code)' do
       expect(described_class.lines_of_code("/* comment \n * com \n ent */")).to eq 0
     end
+
+    it 'ignores multi-line comments (space before opening tag)' do
+      expect(described_class.lines_of_code(" /* comment \n * com \n ent */")).to eq 0
+    end
+
+    it 'does include a line if a multiline comment starts AND ends on it after some code' do
+      expect(described_class.lines_of_code("private int test; /* comment */ ")).to eq 1
+    end
+
+    it 'works with online example one' do
+      expect(described_class.lines_of_code(ONLINE_EXAMPLE_ONE)).to eq 3
+    end
+
+    it 'works with online example two' do
+      expect(described_class.lines_of_code(ONLINE_EXAMPLE_TWO)).to eq 5
+    end
   end
 end
+
+ONLINE_EXAMPLE_ONE = "// This file contains 3 lines of code
+public interface Dave {
+  /**
+   * count the number of lines in a file
+   */
+  int countLines(File inFile); // not the real signature!
+}"
+
+ONLINE_EXAMPLE_TWO ="/*****
+ * This is a test program with 5 lines of code
+ *  \/* no nesting allowed!
+ //*****//***/// Slightly pathological comment ending...
+
+public class Hello {
+    public static final void main(String [] args) { // gotta love Java
+        // Say hello
+      System./*wait*/out./*for*/println/*it*/(\"Hello/*\");
+    }
+
+}"

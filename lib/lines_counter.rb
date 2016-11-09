@@ -22,8 +22,8 @@ class LinesCounter
     return 0 if source_lines.empty?
 
     no_empty_lines = remove_empty_lines(source_lines)
-    no_one_liners = remove_one_line_comments(no_empty_lines)
-    no_multiline_no_one_line = remove_multiline_comments(no_one_liners)
+    no_multilines = remove_multiline_comments(no_empty_lines)
+    no_multiline_no_one_line = remove_one_line_comments(no_multilines)
 
     no_multiline_no_one_line.count
   end
@@ -54,7 +54,7 @@ class LinesCounter
 
   JAVA_ONE_LINE_COMMENT_REGEX = /^\s*\/\//
   EMPTY_LINE_REGEX = /^\s*$/
-  JAVA_MULTILINE_COMMENT_START_REGEX = /^\/\*/
+  JAVA_MULTILINE_COMMENT_START_REGEX = /^\s*\/\*/
   JAVA_MULTILINE_COMMENT_END_REGEX = /\*\//
 
 end
