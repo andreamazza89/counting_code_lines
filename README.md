@@ -1,4 +1,4 @@
-# Binary Chop kata
+# Counting code lines kata
 Following along [codekata](http://codekata.com/kata/kata13-counting-code-lines/) website.
 
 ### Specification
